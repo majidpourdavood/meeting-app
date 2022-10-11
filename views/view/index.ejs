@@ -1,0 +1,67 @@
+<%- include('../includes/head.ejs') %>
+
+<!--<%- include('../includes/navigation.ejs') %>-->
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <% if(isAuthenticated){%>
+
+                <div class="card-group">
+                    <div class="card p-4">
+                        <div class="card-body text-center">
+                            <h4 class="mb-3 mt-5">dashboard</h4>
+                            <a class="btn btn-lg btn-info mt-1 " href="/panel/dashboard">dashboard</a>
+
+                            <form action="/logout" method="post">
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <button class=" btn btn-lg btn-primary mt-3" type="submit">
+                                    <i class="cil-account-logout"></i>
+                                    logout</button>
+                            </form>
+
+
+                        </div>
+                    </div>
+                    <div class="card text-white p-0 d-md-down-none" style="width:44%">
+                        <div class="card-body p-0 text-center">
+                            <img src="/images/register-vector.svg" class="img-fluid w-100 h-100 d-block" alt="">
+                        </div>
+                    </div>
+                </div>
+
+            <% }else{%>
+                <div class="card-group">
+                    <div class="card p-4">
+                        <div class="card-body">
+
+
+                            <%- include('../includes/flashMessage.ejs') %>
+
+                            <h3 class="mb-4">You can register or login and register an appointment</h3>
+
+
+                            <a class="btn btn-lg btn-info mt-1 " href="/login">login</a>
+                            <a class="btn btn-lg btn-danger mt-1 " href="/signup">register</a>
+
+
+                        </div>
+                    </div>
+                    <div class="card text-white p-0 d-md-down-none" style="width:44%">
+                        <div class="card-body p-0 text-center">
+                            <img src="/images/register-vector.svg" class="img-fluid w-100 h-100 d-block" alt="ثبت&zwnj; نام در سایت">
+                        </div>
+                    </div>
+                </div>
+
+            <% }%>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+<%- include('../includes/end.ejs') %>

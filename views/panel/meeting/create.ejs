@@ -1,0 +1,197 @@
+<%- include('../includes/head.ejs') %>
+
+<!--<div id="layoutSidenav">-->
+    <%- include('../includes/navigation.ejs') %>
+
+    <div class="c-wrapper c-fixed-components">
+        <%- include('../../panel/includes/top.ejs') %>
+
+        <div class="c-body">
+            <main class="c-main">
+            <div class="container-fluid">
+
+
+                <div class="container">
+                    <% if(errors.length > 0) { %>
+
+                        <div class="container">
+                            <div class="row m-0 ">
+                                <div class="col-xs-12 col-sm-12 p-0">
+                                    <div class="alert alert-danger alert-dismissible fade show style_alert"
+                                         role="alert">
+
+
+                                        <ul class="list-unstyled list_unstyled_mesage">
+                                            <% errors.forEach(function (item) {
+                                                //
+                                            %>
+                                            <li class="text-right "><%= item %></li>
+                                            <% }) %>
+                                        </ul>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                        <%- include('../includes/flashMessage.ejs') %>
+
+                    <div class="row col-12">
+                        <div class="col-12">
+                            <div class="card  mr-auto ml-auto mt-2">
+                                <div class="card-header">
+                                    create meeting
+                                </div>
+                                <div class="card-body">
+
+                                    <form class="form" action="/panel/store/meeting" method="POST"
+                                          >
+                                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+                                        <div class="form-group  col-12">
+                                            <div class="input-group ">
+
+                                                <label for="startDate-text-label"
+                                                       class="col-12 control-label text-right">
+                                                    startDate
+                                                    <span class="color-required">*</span>
+                                                </label>
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text cursor-pointer startDate-text-label"
+                                                    >
+startDate
+                                                    </span>
+                                                </div>
+                                                <input type="text" class="form-control startDate-text-label"
+                                                       placeholder="" id="startDate-text"
+                                                       value=""
+                                                >
+                                                <input type="hidden" id="startDate-date"
+                                                       class="form-control "
+                                                       placeholder=""
+                                                       name="startDate"
+                                                       value=""
+                                                       aria-label="startDate-date"
+                                                       aria-describedby="startDate-date">
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group  col-12">
+                                            <div class="input-group ">
+
+                                                <label for="endDate-text-label"
+                                                       class="col-12 control-label text-right">
+                                                    endDate
+                                                    <span class="color-required">*</span>
+                                                </label>
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text cursor-pointer endDate-text-label"
+                                                    >
+endDate
+                                                    </span>
+                                                </div>
+                                                <input type="text" class="form-control endDate-text-label"
+                                                       placeholder="" id="endDate-text"
+                                                       value=""
+                                                >
+                                                <input type="hidden" id="endDate-date"
+                                                       class="form-control "
+                                                       placeholder=""
+                                                       name="endDate"
+                                                       value=""
+                                                       aria-label="endDate-date"
+                                                       aria-describedby="endDate-date">
+
+                                            </div>
+                                        </div>
+
+                                        <button class="btn btn-info btn-block mt-3" type="submit">send</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    </div>
+<!--</div>-->
+
+
+<%- include('../includes/end.ejs') %>
+
+
+
+
+<link href="/css/jquery.md.bootstrap.datetimepicker.style.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="/js/jquery.md.bootstrap.datetimepicker.js"></script>
+<script type="text/javascript" src="/js/jquery.validate.min.js"></script>
+
+
+
+<script>
+
+
+
+    $('.startDate-text-label').MdPersianDateTimePicker({
+        targetTextSelector: '#startDate-text',
+        targetDateSelector: '#startDate-date',
+        textFormat: 'yyyy-MM-dd HH:mm:ss',
+        dateFormat: 'yyyy-MM-dd HH:mm:ss',
+        // textFormat: 'yyyy-MM-dd',
+        // dateFormat: 'yyyy-MM-dd',
+        isGregorian: true,
+        enableTimePicker: true,
+        disableBeforeToday: true,
+        calendarViewOnChange: function (date) {
+            console.log(date);
+        }
+    });
+
+    $('.endDate-text-label').MdPersianDateTimePicker({
+        targetTextSelector: '#endDate-text',
+        targetDateSelector: '#endDate-date',
+        textFormat: 'yyyy-MM-dd HH:mm:ss',
+        dateFormat: 'yyyy-MM-dd HH:mm:ss',
+        // textFormat: 'yyyy-MM-dd',
+        // dateFormat: 'yyyy-MM-dd',
+        isGregorian: true,
+        enableTimePicker: true,
+        disableBeforeToday: true,
+        calendarViewOnChange: function (date) {
+            console.log(date);
+        }
+    });
+
+    $(".form").validate({
+        ignore: [], //Fixes your name issue
+        rules: {
+            endDate: {
+                required: true,
+            }, startDate: {
+                required: true,
+            },
+        },
+        messages: {
+            endDate: {
+                required: "endDate is required",
+            },
+            startDate: {
+                required: "startDate is required",
+            },
+
+        },
+        errorClass: "my-error-class",
+        validClass: "my-valid-class",
+
+    });
+
+
+
+</script>

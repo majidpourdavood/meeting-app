@@ -1,0 +1,111 @@
+<%- include('../includes/head.ejs') %>
+
+
+<!--<div id="layoutSidenav">-->
+    <%- include('../includes/navigation.ejs') %>
+
+    <div class="c-wrapper c-fixed-components">
+        <%- include('../../panel/includes/top.ejs') %>
+        <main>
+            <div class="container-fluid">
+
+                <div class="container">
+                    <%- include('../includes/flashMessage.ejs') %>
+
+
+                    <div class="row mt-3">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-header"><i class="fa fa-align-justify"></i> <%= pageTitle %></div>
+                                <div class="card-body">       <% if (notifications.length > 0) { %>
+                        <% i = 1 %>
+                        <div class="grid">
+                            <!--<table class="table table-striped table-responsive">-->
+                                <!--<thead>-->
+                                <table class="table table-responsive-sm table-bordered table-striped table-sm table-responsive" id="myTable">
+                                    <thead class="thead-light">
+                                <tr>
+                                    <th >row</th>
+                                    <th  >message</th>
+                                    <th  >route</th>
+                                    <th >sender</th>
+                                    <th >receiver</th>
+                                    <th >readAt</th>
+                                    <th >createdAt</th>
+                                    <th width="27%">settings</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <% for (let notification of notifications) {
+
+                                %>
+                                    <tr>
+                                        <th scope="row"><%= i %></th>
+                                        <td><%= notification.message %> </td>
+                                        <td><%= notification.route %> </td>
+                                        <td><%= notification.sender %> </td>
+                                        <td><%= notification.receiver %> </td>
+                                        <td><%= notification.readAt %> </td>
+                                        <td><%= notification.createdAt %> </td>
+
+                                        <td>
+                                            <ul class="list-inline">
+
+
+                                                <li class="list-inline-item">
+                                                    <form action="/panel/delete/notification/<%= notification._id %>" method="POST">
+                                                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                                        <button class="btn btn-danger" type="submit"
+                                                                onclick="return  confirm('آیا میخواهید اعلان حذف شود؟')"
+                                                        >
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                </li>
+                                            </ul>
+
+
+                                        </td>
+
+                                    </tr>
+
+                                    <% i++ %>
+
+                                <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    <% } else { %>
+                        <h1>No notifications Found!</h1>
+                    <% } %>
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+<!--</div>-->
+
+
+<%- include('../includes/end.ejs') %>
+
+
+<script>
+
+    // var x = window.localStorage.getItem('role');
+    // console.log(x);
+    //
+    // $(function () {
+    //     if (x == 'user') {
+    //         // alert("ننن")
+    //         $('.sb-topnav').addClass('bg_danger');
+    //         $('.sb-sidenav-menu').addClass('bg_danger');
+    //         // $('.sb-sidenav-dark .sb-sidenav-footer').addClass('bg_danger');
+    //     }
+    // })
+
+</script>
